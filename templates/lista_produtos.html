@@ -12,7 +12,7 @@
                 <th>Preço</th>
                 <th>Descrição</th>
                 <th>Empresa</th>
-                
+                <th>Categoria</th>
             </tr>
         </thead>
         <tbody>
@@ -22,7 +22,7 @@
                 <td>{{ produto.preco }}</td>
                 <td>{{ produto.descricao }}</td>
                 <td>{{ produto.empresa.nome }}</td>
-                
+                <td>{{ produto.categoria.nome }}</td>  </tr>
             {% endfor %}
         </tbody>
     </table>
