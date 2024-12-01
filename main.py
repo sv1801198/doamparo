@@ -88,7 +88,7 @@ async def post_cadastro_produto(request: Request):
     )
     try:
         novo_produto.save()
-        return templates.TemplateResponse("lista_produtos.html", {"request": request, "produtos": Produto.select()})
+        return {"Mensagem" : "Sucesso"}
     except IntegrityError as e:
         return {"error": str(e)}
     except:
