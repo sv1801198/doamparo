@@ -31,8 +31,8 @@ class Produto(peewee.Model):
     preco = peewee.DecimalField(max_digits=10, decimal_places=2)
     img_link = peewee.CharField()
     descricao = peewee.CharField(null=True)
-    _categoria = peewee.ForeignKeyField(Categoria, backref='produtos')
-    _empresa = peewee.ForeignKeyField(Empresa, backref='produtos')
+    categoria = peewee.ForeignKeyField(Categoria, backref='produtoss')
+    empresa = peewee.ForeignKeyField(Empresa, backref='produtos')
 
     class Meta: 
         database = database
