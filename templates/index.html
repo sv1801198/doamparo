@@ -1,6 +1,42 @@
-<h2>index.html</h2><br><br>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Meu Site</title>
+    <link rel="stylesheet" href="style.css"> </head>
+    <style>
+        /* Estilos CSS aqui */
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
 
-<a href="/cadastro_empresa">cadastro de empresa</a><br>
-<a href="/empresas_cadastradas">empresas cadastradas</a><br>
-<a href="/cadastro_categoria">cadastro de categoria</a><br>
-<a href="/cadastro_produto">cadastro de produto</a><br>
+        li {
+            margin: 10px 0;
+        }
+
+        a {
+            text-decoration: none;
+            padding: 10px;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+            display: inline-block;
+            width: 200px;
+            text-align: center;
+        }
+
+        a:hover {
+            background-color: #ddd;
+        }
+    </style>
+<body>
+    <h1>Painel de Controle</h1>
+    <ul>
+        <li><a href="/cadastro_empresa">Cadastro de Empresa</a></li>
+        <li><a href="/empresas_cadastradas">Empresas Cadastradas</a></li>
+        <li><a href="/cadastro_categoria">Cadastro de Categoria</a></li>
+        <li><a href="/categorias_cadastradas">Categorias Cadastradas</a></li>
+        <li><a href="/cadastro_produto">Cadastro de Produto</a></li>
+        <li><a href="/produtos_cadastrados">Produtos Cadastrados</a></li>
+    </ul>
+</body>
+</html>
