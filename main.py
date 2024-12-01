@@ -52,7 +52,7 @@ async def get_cadastro_categoria(request: Request):
 @app.get("/categorias_cadastradas")
 async def get_categorias_cadastradas(request: Request):
     # Busca todas as categorias no banco de dados
-    categorias = Categorias.select()
+    categorias = Categoria.select()
 
     # Passa a lista de categorias para o template
     return templates.TemplateResponse("lista_categorias.html", {"request": request, "categorias": categorias})
@@ -60,13 +60,13 @@ async def get_categorias_cadastradas(request: Request):
 @app.post("/cadastro_categoria")
 async def post_cadastro_categoria(request: Request):
     form_data = await request.form()
-    nova_categoria = Categorias(
+    nova_categoria = Categoria(
         nome=form_data['nome'],
         empresa=form_data['empresa']
     )
     try:
         nova_categoria.save()
-        return templates.TemplateResponse("lista_categorias.html", {"request": request, "categorias": Categorias.select()})
+        return templates.TemplateResponse("lista_categorias.html", {"request": request, "categorias": Categoria.select()})
     except IntegrityError as e:
         return {"error": str(e)}
     except:

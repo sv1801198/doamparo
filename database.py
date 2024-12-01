@@ -19,7 +19,7 @@ class Empresa(peewee.Model):
     class Meta:
         database = database
 
-class Categorias(peewee.Model):
+class Categoria(peewee.Model):
     nome = peewee.CharField()
     empresa = peewee.ForeignKeyField(Empresa, backref='categorias')
 
@@ -31,7 +31,7 @@ class Produto(peewee.Model):
     preco = peewee.DecimalField(max_digits=10, decimal_places=2)
     img_link = peewee.CharField()
     descricao = peewee.CharField(null=True)
-    categoria = peewee.ForeignKeyField(Categorias)
+    categoria = peewee.ForeignKeyField(Categoria, backref='produtos')
     empresa = peewee.ForeignKeyField(Empresa, backref='produtos')
 
     class Meta: 
@@ -53,4 +53,4 @@ class Perfil(peewee.Model):
 def create_tables():
     database.create_tables([Empresa], safe=True)
     database.create_tables([Produto], safe=True)
-    database.create_tables([Categorias], safe=True)
+    database.create_tables([Categoria], safe=True)
