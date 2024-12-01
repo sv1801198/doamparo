@@ -84,6 +84,7 @@ async def post_cadastro_produto(request: Request):
         preco=form_data['preco'],
         descricao=form_data['descricao'],
         img_link=form_data['img_link'],
+        categoria=form_data['categoria'],
         empresa=form_data['empresa']
     )
     try:
