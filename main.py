@@ -9,6 +9,8 @@ templates = Jinja2Templates(directory="templates")
 
 create_tables()
 
+print("-----------------------------------------//-----------------------------------------")
+
 @app.get("/")
 async def get_home(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
