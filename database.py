@@ -10,7 +10,7 @@ database = peewee.MySQLDatabase(
 )
 
 class Empresa(peewee.Model):
-    #nome = peewee.CharField()
+    nome = peewee.CharField()
     login = peewee.CharField(unique=True)
     senha = peewee.CharField()
     email = peewee.CharField(unique=True)
