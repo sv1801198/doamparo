@@ -32,12 +32,10 @@ class Produto(peewee.Model):
     img_link = peewee.CharField()
     descricao = peewee.CharField(null=True)
     categoria = peewee.ForeignKeyField(Categorias, backref='produtos')
-    empresa = peewee.ForeignKeyField(Empresa, backref='produtos')
+    #empresa = peewee.ForeignKeyField(Empresa, backref='produtos')
 
     class Meta: 
         database = database
-
-
 
 class Perfil(peewee.Model):
     nome = peewee.CharField(null=True)
