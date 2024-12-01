@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Categorias Cadastradas</title>
+</head>
+<body>
+    <h1>Categorias Cadastradas</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Empresa</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for categoria in categorias %}
+            <tr>
+                <td>{{ categoria.nome }}</td>
+                <td>{{ categoria.empresa.nome }}</td>  </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

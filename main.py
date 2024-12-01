@@ -39,7 +39,7 @@ async def post_create_empresa(request: Request):
     )
     try:
         nova_empresa.save()
-        return {"message": "Empresa cadastrada com sucesso!"}
+        return templates.TemplateResponse("lista_empresas.html", {"request": request, "empresas": Empresa.select()})
     except IntegrityError as e:
         return {"error": str(e)}
     except:
@@ -48,6 +48,14 @@ async def post_create_empresa(request: Request):
 @app.get("/cadastro_categoria")
 async def get_cadastro_categoria(request: Request):
     return templates.TemplateResponse("cadastrar_categoria.html", {"request": request})
+
+@app.get("/categorias_cadastradas")
+async def get_categorias_cadastradas(request: Request):
+    # Busca todas as categorias no banco de dados
+    categorias = Categorias.select()
+
+    # Passa a lista de categorias para o template
+    return templates.TemplateResponse("lista_categorias.html", {"request": request, "categorias": categorias})
 
 @app.post("/cadastro_categoria")
 async def post_cadastro_categoria(request: Request):
@@ -58,7 +66,7 @@ async def post_cadastro_categoria(request: Request):
     )
     try:
         nova_categoria.save()
-        return {"message": "Categoria cadastrada com sucesso!"}
+        return templates.TemplateResponse("lista_categorias.html", {"request": request, "categorias": Categorias.select()})
     except IntegrityError as e:
         return {"error": str(e)}
     except:
@@ -80,8 +88,16 @@ async def post_cadastro_produto(request: Request):
     )
     try:
         novo_produto.save()
-        return {"message": "Produto cadastrado com sucesso!"}
+        return templates.TemplateResponse("lista_produtos.html", {"request": request, "produtos": Produto.select()})
     except IntegrityError as e:
         return {"error": str(e)}
     except:
         return {"error": "um erro inesperado ocorreu"}
+    
+@app.get("/produtos_cadastrados")
+async def get_produtos_cadastrados(request: Request):
+    # Busca todos os produtos no banco de dados
+    produtos = Produto.select()
+
+    # Passa a lista de produtos para o template
+    return templates.TemplateResponse("lista_produtos.html", {"request": request, "produtos": produtos})
