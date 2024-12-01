@@ -31,7 +31,7 @@ async def get_empresas_cadastradas(request: Request):
 async def post_create_empresa(request: Request):
     form_data = await request.form()
     nova_empresa = Empresa(
-        nome=form_data['nome'],
+        #nome=form_data['nome'],
         login=form_data['login'],
         senha=form_data['senha'],
         email=form_data['email'],
