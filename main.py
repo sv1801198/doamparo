@@ -19,6 +19,14 @@ async def get_home(request: Request):
 async def get_create_empresa(request: Request):
     return templates.TemplateResponse("cadastrar_empresa.html", {"request": request})
 
+@app.get("/empresas_cadastradas")
+async def get_empresas_cadastradas(request: Request):
+    # Busca todas as empresas no banco de dados
+    empresas = Empresa.select()
+
+    # Passa a lista de empresas para o template
+    return templates.TemplateResponse("lista_empresas.html", {"request": request, "empresas": empresas})
+
 @app.post("/cadastro_empresa")
 async def post_create_empresa(request: Request):
     form_data = await request.form()
