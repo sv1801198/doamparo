@@ -4,7 +4,7 @@ from peewee import IntegrityError
 database = peewee.MySQLDatabase(
     'anaiza',
     user='root',
-    password='1234',
+    password='Va123Va123@',
     host='localhost',
     port=3306
 )
