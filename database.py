@@ -21,7 +21,7 @@ class Empresa(peewee.Model):
 
 class Categorias(peewee.Model):
     nome = peewee.CharField()
-    empresa = peewee.ForeignKeyField(Empresa, backref='categorias')
+    empresa = peewee.ForeignKeyField(Empresa, backref='cat')
 
     class Meta: 
         database = database
