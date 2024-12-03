@@ -1,6 +1,7 @@
 import peewee
 from peewee import IntegrityError
 
+# Configuração do banco de dados
 database = peewee.MySQLDatabase(
     'anaiza',
     user='root',
@@ -9,6 +10,7 @@ database = peewee.MySQLDatabase(
     port=3306
 )
 
+# Modelo Empresa
 class Empresa(peewee.Model):
     nome = peewee.CharField()
     login = peewee.CharField(unique=True)
@@ -19,6 +21,7 @@ class Empresa(peewee.Model):
     class Meta:
         database = database
 
+# Modelo Categoria
 class Categoria(peewee.Model):
     nome = peewee.CharField()
     empresa = peewee.ForeignKeyField(Empresa, backref='categorias')
@@ -26,17 +29,19 @@ class Categoria(peewee.Model):
     class Meta: 
         database = database
 
+# Modelo Produto
 class Produto(peewee.Model):
     nome = peewee.CharField()
     preco = peewee.DecimalField(max_digits=10, decimal_places=2)
     img_link = peewee.CharField()
     descricao = peewee.CharField(null=True)
-    categoria = peewee.CharField()
+    categoria = peewee.ForeignKeyField(Categoria, backref='produtos')  # Agora é uma ForeignKeyField
     empresa = peewee.ForeignKeyField(Empresa, backref='produtos')
 
     class Meta: 
         database = database
 
+# Modelo Perfil
 class Perfil(peewee.Model):
     nome = peewee.CharField(null=True)
     endereco = peewee.CharField(null=True)
@@ -50,7 +55,10 @@ class Perfil(peewee.Model):
     class Meta: 
         database = database
 
+# Função para criar tabelas
 def create_tables():
-    database.create_tables([Empresa], safe=True)
-    database.create_tables([Produto], safe=True)
-    database.create_tables([Categoria], safe=True)
+    database.create_tables([Empresa, Categoria, Produto, Perfil], safe=True)
+
+# Criando as tabelas no banco de dados
+if __name__ == "__main__":
+    create_tables()
