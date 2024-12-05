@@ -27,6 +27,22 @@
             margin-bottom: 20px;
             font-size: 24px;
         }
+        .login-container .message {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .login-container .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .login-container .message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
         .login-container input {
             width: 100%;
             padding: 10px;
@@ -62,12 +78,20 @@
 <body>
     <div class="login-container">
         <h1>Login</h1>
+
+        <!-- Bloco para mensagens do servidor -->
+        {% if message %}
+        <div class="message {{ message_type }}">
+            {{ message }}
+        </div>
+        {% endif %}
+
         <form method="post" action="/login">
             <input type="text" name="username" placeholder="Usuário" required>
             <input type="password" name="password" placeholder="Senha" required>
             <div style="margin: 10px 0; text-align: left;">
-                <input type="checkbox" id="stay_logged_in" name="stay_logged_in">
-                <label for="stay_logged_in">Continuar conectado</label>
+                <input type="checkbox" id="persist" name="persist">
+                <label for="persist">Continuar conectado</label>
             </div>
             <button type="submit">Login</button>
         </form>

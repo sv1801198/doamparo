@@ -1,6 +1,10 @@
 from database import *
+from utils import *
 
-from fastapi import FastAPI, Request
+from jose import JWTError, jwt
+from datetime import datetime, timedelta
+
+from fastapi import FastAPI, Request, Form, Response, Depends, HTTPException
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import HTMLResponse
 
@@ -8,8 +12,6 @@ app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 
 create_tables()
-
-print("-----------------------------------------//-----------------------------------------")
 
 @app.get("/")
 async def get_home(request: Request):
@@ -20,14 +22,81 @@ async def get_login(request: Request):
     return templates.TemplateResponse("login.html", {"request": request})
 
 @app.post("/login")
-async def post_login(request: Request):
-    form_data = await request.form()
-    login_data = Empresa(
-        username=form_data['username'],
-        password=form_data['password'],
-    )
-    return {"Cadastro" : "Tentando Cadastrar"}
+async def post_login(request: Request,
+    username: str = Form(...),
+    password: str = Form(...),
+    persist: bool = Form(False)  # Define um valor padrão para a checkbox
+   
+):
+    if verificar_login(username, password):
 
+        access_token = create_access_token(
+            data={"sub": username},
+            expires_delta=timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+        )
+
+        response = templates.TemplateResponse(
+            "login.html",
+            {
+                "request": request,
+                "message": "Login realizado com sucesso!",
+                "message_type": "success",
+            }
+        )
+        response.set_cookie(
+            key="access_token", 
+            value=access_token, 
+            httponly=True,  # Isso ajuda a evitar acesso via JavaScript (segurança)
+            max_age=timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES),  # Expira com o token
+            secure=True,  # Use True para HTTPS
+            samesite="Strict"  # Para evitar o envio em requisições de terceiros
+        )
+
+        return response
+
+
+    else:
+        return templates.TemplateResponse(
+            "login.html",
+            {
+                "request": request,
+                "message": "Login ou senha incorretos!",
+                "message_type": "error",
+            }
+        )
+
+@app.get("/logout")
+async def logout(request: Request, response: Response):
+    # Remove o cookie de autenticação (o token de acesso)
+    
+    response = templates.TemplateResponse(
+            "login.html",
+            {
+                "request": request,
+                "message": "Deslogado com sucesso!",
+                "message_type": "success",
+            }
+        )
+    
+    response.delete_cookie("access_token")
+
+    return response
+
+@app.get("/protected-route")
+async def protected_route(request: Request):
+    """
+    Rota protegida que verifica o token JWT presente no cookie.
+    """
+    # Resgata o cookie "access_token"
+    token = request.cookies.get("access_token")
+    if not token:
+        raise HTTPException(status_code=401, detail="Token não encontrado")
+    
+    # Verifica o token
+    username = verify_token(token)
+    
+    # Retorna o conteúdo protegido
+    return {"message": f"Bem-vindo, {username}!"}
 
 @app.get("/cadastro_empresa")
 async def get_create_empresa(request: Request):
