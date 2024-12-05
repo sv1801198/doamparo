@@ -15,6 +15,20 @@ print("-----------------------------------------//------------------------------
 async def get_home(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
+@app.get("/login")
+async def get_login(request: Request):
+    return templates.TemplateResponse("login.html", {"request": request})
+
+@app.post("/login")
+async def post_login(request: Request):
+    form_data = await request.form()
+    login_data = Empresa(
+        username=form_data['username'],
+        password=form_data['password'],
+    )
+    return {"Cadastro" : "Tentando Cadastrar"}
+
+
 @app.get("/cadastro_empresa")
 async def get_create_empresa(request: Request):
     return templates.TemplateResponse("cadastrar_empresa.html", {"request": request})
