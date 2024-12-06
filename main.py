@@ -91,7 +91,10 @@ async def protected_route(request: Request):
     """
     # Resgata o cookie "access_token"
     token = request.cookies.get("access_token")
-    data = verify_token(token)
+    try:
+        data = verify_token(token)
+    except:
+        pass
 
     if not token:
         return templates.TemplateResponse(
