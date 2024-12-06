@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 
 from fastapi import FastAPI, Request, Form, Response, Depends, HTTPException
 from fastapi.templating import Jinja2Templates
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
@@ -34,12 +34,14 @@ async def post_login(request: Request,
             data={"sub": username},
             expires_delta=timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
         )
-
+        
+        print("Indice da empresa: " + str(Empresa.get(Empresa.login == username)))
+        
         response = templates.TemplateResponse(
-            "login.html",
+            "painel.html",
             {
                 "request": request,
-                "message": "Login realizado com sucesso!",
+                "message": f"Login realizado com sucesso! <br> Bem vindo {Empresa.get(Empresa.login == username).nome}",
                 "message_type": "success",
             }
         )
@@ -89,14 +91,30 @@ async def protected_route(request: Request):
     """
     # Resgata o cookie "access_token"
     token = request.cookies.get("access_token")
+    data = verify_token(token)
+
     if not token:
-        raise HTTPException(status_code=401, detail="Token não encontrado")
-    
-    # Verifica o token
-    username = verify_token(token)
-    
-    # Retorna o conteúdo protegido
-    return {"message": f"Bem-vindo, {username}!"}
+        return templates.TemplateResponse(
+            "login.html",
+            {
+                "request": request,
+                "message": "Token de acesso não encontrado!",
+                "message_type": "error",
+            }
+        )
+
+    return templates.TemplateResponse(
+        "painel.html",
+        {
+            "request": request,
+            "message": f"Bem Vindo{data['sub']}",
+            "message_type": "error",
+        }
+    )
+
+@app.get("/painel")
+async def get_painel(request: Request):
+    return templates.TemplateResponse("painel.html", {"request": request})
 
 @app.get("/cadastro_empresa")
 async def get_create_empresa(request: Request):
