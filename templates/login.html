@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="/static/styles.css">
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            background-color: #f4f4f4;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -17,15 +16,16 @@
         }
         .login-container {
             background: #fff;
-            padding: 20px;
-            border-radius: 8px;
+            padding: 30px;
+            border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            width: 350px;
             text-align: center;
         }
         .login-container h1 {
             margin-bottom: 20px;
-            font-size: 24px;
+            font-size: 26px;
+            color: #2a9d8f;
         }
         .login-container .message {
             margin-bottom: 20px;
@@ -45,34 +45,55 @@
         }
         .login-container input {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             margin: 10px 0;
             border: 1px solid #ccc;
             border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
         }
         .login-container button {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             border: none;
             border-radius: 5px;
-            background-color: #007BFF;
+            background-color: #2a9d8f;
             color: white;
             font-size: 16px;
+            font-weight: bold;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
         .login-container button:hover {
-            background-color: #0056b3;
+            background-color: #21867a;
         }
         .login-container .link {
-            margin-top: 10px;
+            margin-top: 15px;
             display: block;
-            color: #007BFF;
+            color: #e76f51;
             text-decoration: none;
             font-size: 14px;
         }
         .login-container .link:hover {
             text-decoration: underline;
         }
+        .checkbox-container {
+			display: auto;
+			align-items: center;
+			/* Remover text-align: left; */
+		}
+
+		.checkbox-container input {
+			margin-right: 5px;
+			margin-left: 0;
+		}
+
+		.checkbox-container label {
+			font-size: 14px;
+			line-height: 1.5;
+			/* Adicionar para garantir que o texto comece imediatamente após o checkbox */
+			margin-left: 0;
+		}
     </style>
 </head>
 <body>
@@ -89,13 +110,16 @@
         <form method="post" action="/login">
             <input type="text" name="username" placeholder="Usuário" required>
             <input type="password" name="password" placeholder="Senha" required>
-            <div style="margin: 10px 0; text-align: left;">
+            
+            <!-- Ajuste do checkbox -->
+            <div class="checkbox-container">
                 <input type="checkbox" id="persist" name="persist">
                 <label for="persist">Continuar conectado</label>
             </div>
-            <button type="submit">Login</button>
+            
+            <button type="submit">Entrar</button>
         </form>
-        <a href="/cadastro_empresa" class="link">Cadastre-se</a>
+        <a href="/cadastro_empresa" class="link">Não tem uma conta? Cadastre-se</a>
     </div>
 </body>
 </html>

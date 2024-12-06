@@ -1,25 +1,120 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Empresa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .form-container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+        }
+        .form-container h2 {
+            margin-bottom: 20px;
+            font-size: 26px;
+            color: #2a9d8f;
+        }
+        .form-container label {
+            font-size: 14px;
+            color: #333;
+            margin-top: 10px;
+            display: block;
+            text-align: left;
+        }
+        .form-container input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        .form-container input[type="submit"] {
+            background-color: #2a9d8f;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .form-container input[type="submit"]:hover {
+            background-color: #21867a;
+        }
+        .form-container .link {
+            margin-top: 15px;
+            display: block;
+            color: #e76f51;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .form-container .link:hover {
+            text-decoration: underline;
+        }
+        .form-container .error {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+    </style>
+    <script>
+        // Função para validar as senhas
+        function validarFormulario() {
+            var senha = document.getElementById("senha").value;
+            var confirmarSenha = document.getElementById("confirmar_senha").value;
+
+            // Verificar se as senhas coincidem
+            if (senha !== confirmarSenha) {
+                document.getElementById("erro-senha").innerText = "As senhas não coincidem. Tente novamente.";
+                return false; // Impede o envio do formulário
+            } else {
+                document.getElementById("erro-senha").innerText = ""; // Limpa a mensagem de erro
+                return true; // Permite o envio do formulário
+            }
+        }
+    </script>
 </head>
 <body>
-    <h2>Cadastrar Empresa</h2>
-    <form action="/cadastro_empresa" method="post">
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome"><br><br>
-        <label for="login">Login:</label>
-        <input type="text" id="login" name="login"><br><br>
-        <label for="senha">Senha:</label>
-        <input type="text" id="senha" name="senha"><br><br>
-        <label for="email">E-mail:</label>
-        <input type="text" id="email" name="email"><br><br>
-        <label for="telefone">Telefone:</label>
-        <input type="text" id="telefone" name="telefone"><br><br>
-        <input type="submit" value="Salvar">
-    </form>
+    <div class="form-container">
+        <h2>Cadastrar Empresa</h2>
+        
+        <form action="/cadastro_empresa" method="post" onsubmit="return validarFormulario()">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required>
 
-    <a href="/">home</a><br>
+            <label for="login">Login:</label>
+            <input type="text" id="login" name="login" required>
 
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" required>
+
+            <label for="confirmar_senha">Confirmar Senha:</label>
+            <input type="password" id="confirmar_senha" name="confirmar_senha" required>
+            <div id="erro-senha" class="error"></div>
+
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="telefone">Telefone:</label>
+            <input type="tel" id="telefone" name="telefone" required>
+
+            <input type="submit" value="Salvar">
+        </form>
+
+        <a href="/" class="link">Voltar para a Home</a>
+    </div>
 </body>
 </html>

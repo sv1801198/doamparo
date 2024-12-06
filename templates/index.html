@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Do Amparo - Catálogo e Cardápio Virtual</title>
+    <title>Do Amparo - Catálogo Virtual para Empresas</title>
     <style>
         /* Estilos Gerais */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
@@ -18,53 +18,65 @@
             background-color: #2a9d8f;
             color: white;
             padding: 20px;
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         header h1 {
             margin: 0;
+            font-size: 1.8em;
         }
 
-        .main-content {
-            text-align: center;
-            padding: 40px 20px;
+        .header-buttons {
+            display: flex;
+            gap: 10px;
         }
 
-        .product-section {
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .product-section h2 {
-            font-size: 2em;
+        .header-buttons a {
+            text-decoration: none;
+            background-color: white;
             color: #2a9d8f;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
         }
 
-        .product-section p {
+        .header-buttons a:hover {
+            background-color: #ddd;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            background-color: #d9f0e2;
+        }
+
+        .hero h2 {
+            font-size: 2.8em;
+            color: #2a9d8f;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
             font-size: 1.2em;
             color: #555;
+            margin-bottom: 30px;
         }
 
-        .price {
-            font-size: 1.5em;
-            color: #e76f51;
-            font-weight: bold;
-        }
-
-        .discount-price {
-            font-size: 1.5em;
-            color: #2a9d8f;
-            font-weight: bold;
-            text-decoration: line-through;
-            margin-right: 10px;
+        .hero img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            margin-bottom: 20px;
         }
 
         .cta-buttons {
-            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
         }
 
         .cta-buttons a {
@@ -73,73 +85,111 @@
             color: white;
             padding: 15px 25px;
             border-radius: 5px;
-            margin: 10px;
             font-size: 1.2em;
-            display: inline-block;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
         }
 
         .cta-buttons a:hover {
             background-color: #f4a261;
         }
 
-        /* Estilos para o Painel de Controle */
-        .control-panel {
-            margin-top: 50px;
+        .video-demo {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #f9fafb;
+        }
+
+        .video-demo h3 {
+            font-size: 2em;
+            color: #2a9d8f;
+            margin-bottom: 20px;
+        }
+
+        .video-demo iframe {
+            width: 80%;
+            max-width: 800px;
+            height: 450px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             padding: 20px;
+            text-align: center;
+        }
+
+        .feature-card img {
+            max-width: 80px;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5em;
+            color: #2a9d8f;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            font-size: 1em;
+            color: #555;
+        }
+
+        .pricing-section {
+            text-align: center;
+            background-color: #d9f0e2;
+            padding: 40px 20px;
+            margin-top: 30px;
+        }
+
+        .pricing-section h2 {
+            font-size: 2.4em;
+            color: #2a9d8f;
+            margin-bottom: 20px;
+        }
+
+        .pricing-section p {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .price {
+            font-size: 2em;
+            color: #e76f51;
+            font-weight: bold;
+        }
+
+        .discount-price {
+            font-size: 1.5em;
+            color: #555;
+            text-decoration: line-through;
+            margin-right: 10px;
+        }
+
+        footer {
             background-color: #2a9d8f;
             color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .control-panel h2 {
-            font-size: 1.5em;
-        }
-
-        .control-panel ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .control-panel li {
-            margin: 10px 0;
-        }
-
-        .control-panel a {
-            text-decoration: none;
-            background-color: #f2f2f2;
-            padding: 10px;
-            border-radius: 5px;
-            display: inline-block;
-            width: 200px;
             text-align: center;
-            color: #333;
+            padding: 20px;
         }
 
-        .control-panel a:hover {
-            background-color: #ddd;
-        }
-
-        /* Responsividade */
-        @media (max-width: 600px) {
-            .product-section {
-                padding: 20px;
-            }
-
-            .cta-buttons a {
-                padding: 10px 15px;
-                font-size: 1em;
-            }
-
-            .control-panel {
-                padding: 10px;
-            }
-
-            .control-panel a {
-                width: 150px;
-                padding: 8px;
-            }
+        footer p {
+            margin: 0;
+            font-size: 0.9em;
         }
     </style>
 </head>
@@ -147,34 +197,67 @@
     <!-- Cabeçalho -->
     <header>
         <h1>Do Amparo</h1>
-        <p>Seu catálogo e cardápio virtual para comércio de delivery ou não.</p>
+        <div class="header-buttons">
+            <a href="/login">Entrar</a>
+            <a href="/cadastro_empresa">Cadastrar</a>
+        </div>
     </header>
 
-    <!-- Seção Principal -->
-    <div class="main-content">
-        <div class="product-section">
-            <h2>Catálogo e Cardápio Virtual</h2>
-            <p>Com o serviço "Do Amparo", sua empresa terá um catálogo completo e cardápio virtual para facilitar as vendas e proporcionar uma experiência digital aos seus clientes.</p>
-            <p><span class="discount-price">R$ 39,99</span><span class="price">R$ 29,99</span></p>
-            <div class="cta-buttons">
-                <a href="/adquirir" target="_blank">Adquirir Agora</a>
-                <a href="/contato" target="_blank">Fale Conosco</a>
-            </div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <h2>O Catálogo Virtual Perfeito para o Seu Negócio</h2>
+        <p>Transforme a experiência dos seus clientes com um catálogo digital intuitivo e moderno.</p>
+        <img src="https://via.placeholder.com/800x400" alt="Catálogo virtual">
+        <div class="cta-buttons">
+            <a href="#pricing">Veja os Preços</a>
+            <a href="/teste_gratis">Teste Grátis Agora</a>
         </div>
-    </div>
+    </section>
 
-    <!-- Painel de Controle (Visível enquanto o programa estiver em produção) -->
-    <div class="control-panel">
-        <h2>Painel de Controle</h2>
-        <ul>
-            <li><a href="/login">Login</a></li>
-            <li><a href="/cadastro_empresa">Cadastro de Empresa</a></li>
-            <li><a href="/empresas_cadastradas">Empresas Cadastradas</a></li>
-            <li><a href="/cadastro_categoria">Cadastro de Categoria</a></li>
-            <li><a href="/categorias_cadastradas">Categorias Cadastradas</a></li>
-            <li><a href="/cadastro_produto">Cadastro de Produto</a></li>
-            <li><a href="/produtos_cadastrados">Produtos Cadastrados</a></li>
-        </ul>
-    </div>
+    <!-- Seção de Demonstração em Vídeo -->
+    <section class="video-demo">
+        <h3>Veja Como Funciona</h3>
+        <iframe src="https://www.youtube.com/embed/placeholder" title="Demonstração do Catálogo Virtual"></iframe>
+    </section>
+
+    <!-- Seção de Recursos -->
+    <section class="features">
+        <div class="feature-card">
+            <img src="https://via.placeholder.com/80" alt="Personalização">
+            <h3>Personalização Completa</h3>
+            <p>Adapte o catálogo ao estilo e necessidades do seu negócio.</p>
+        </div>
+        <div class="feature-card">
+            <img src="https://via.placeholder.com/80" alt="Usabilidade">
+            <h3>Fácil de Usar</h3>
+            <p>Interface intuitiva para você e seus clientes.</p>
+        </div>
+        <div class="feature-card">
+            <img src="https://via.placeholder.com/80" alt="Suporte">
+            <h3>Suporte Dedicado</h3>
+            <p>Equipe pronta para ajudar no que for necessário.</p>
+        </div>
+        <div class="feature-card">
+            <img src="https://via.placeholder.com/80" alt="Integração">
+            <h3>Integração Simples</h3>
+            <p>Conecte-se a ferramentas e plataformas populares facilmente.</p>
+        </div>
+    </section>
+
+    <!-- Seção de Preços -->
+    <section class="pricing-section" id="pricing">
+        <h2>Invista no Futuro do Seu Negócio</h2>
+        <p>Planos acessíveis para empresas de todos os tamanhos.</p>
+        <p><span class="discount-price">R$ 39,99</span><span class="price">R$ 29,99</span>/mês</p>
+        <div class="cta-buttons">
+            <a href="/adquirir">Adquirir Agora</a>
+            <a href="/teste_gratis">Teste Grátis por 30 Dias</a>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer>
+        <p>&copy; 2024 Do Amparo. Todos os direitos reservados.</p>
+    </footer>
 </body>
 </html>
