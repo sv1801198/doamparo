@@ -1,27 +1,153 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Produto</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #2a9d8f;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .header-buttons a {
+            text-decoration: none;
+            background-color: white;
+            color: #2a9d8f;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .header-buttons a:hover {
+            background-color: #ddd;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-size: 2em;
+            color: #2a9d8f;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0 20px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background-color: #2a9d8f;
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #21867a;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: flex-start;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .footer-links a {
+            color: #e76f51;
+            text-decoration: none;
+            font-size: 1em;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
 </head>
 <body>
-    <h2>Cadastrar Produto</h2>
-    <form action="/cadastro_produto" method="post">
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome"><br><br>
-        <label for="preco">Preço:</label>
-        <input type="text" id="preco" name="preco"><br><br>
-        <label for="descricao">Descrição:</label>
-        <input type="text" id="descricao" name="descricao"><br><br>
-        <label for="img_link">Link da Imagem:</label>
-        <input type="text" id="img_link" name="img_link"><br><br>
-        <label for="categoria">Categoria:</label>
-        <input type="text" id="categoria" name="categoria"><br><br>
-        <label for="empresa">Empresa:</label>
-        <input type="text" id="empresa" name="empresa"><br><br>
-        <input type="submit" value="Salvar">
-    </form>
 
-    <a href="/">home</a><br>
+    <header>
+        <h1>Do Amparo</h1>
+        <div class="header-buttons">
+            <a href="/logout">Sair</a>
+            <a href="/">Home</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2>Cadastrar Produto</h2>
+        <form action="/cadastro_produto" method="post">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required><br><br>
+
+            <label for="preco">Preço:</label>
+            <input type="text" id="preco" name="preco" required><br><br>
+
+            <label for="descricao">Descrição:</label>
+            <input type="text" id="descricao" name="descricao" required><br><br>
+
+            <label for="img_link">Link da Imagem:</label>
+            <input type="text" id="img_link" name="img_link" required><br><br>
+
+            <label for="categoria">Categoria:</label>
+            <input type="text" id="categoria" name="categoria" required><br><br>
+
+            <label for="empresa">Empresa:</label>
+            <input type="text" id="empresa" name="empresa" required><br><br>
+
+            <input type="submit" value="Salvar">
+        </form>
+
+        <div class="footer-links">
+            <a href="/">Voltar à Home</a>
+        </div>
+    </div>
 
 </body>
 </html>
