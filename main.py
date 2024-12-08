@@ -157,7 +157,8 @@ async def get_painel(request: Request):
                 }
             )
 
-    return templates.TemplateResponse("painel.html", {"request": request})
+    username = Empresa.get_or_none(Empresa.login == data["sub"])
+    return templates.TemplateResponse("painel.html", {"request": request, "user_name" : username})
 
 @app.get("/cadastro_empresa")
 async def get_create_empresa(request: Request):
