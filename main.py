@@ -28,41 +28,57 @@ async def post_login(request: Request,
     persist: bool = Form(False)  # Define um valor padrão para a checkbox
    
 ):
-    if verificar_login(username, password):
+    #verifica se a empresa existe no banco de dados e armazena em uma variável
+    empresa = Empresa.get_or_none(Empresa.login == username)
+    if empresa:
+        if verificar_login(username, password):
+            access_token = create_access_token(
+                data={"sub": username},
+                expires_delta=timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+            )
 
-        access_token = create_access_token(
-            data={"sub": username},
-            expires_delta=timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-        )
-        
-        print("Indice da empresa: " + str(Empresa.get(Empresa.login == username)))
-        
-        response = templates.TemplateResponse(
-            "painel.html",
-            {
-                "request": request,
-                "message": f"Login realizado com sucesso! <br> Bem vindo {Empresa.get(Empresa.login == username).nome}",
-                "message_type": "success",
-            }
-        )
-        response.set_cookie(
-            key="access_token", 
-            value=access_token, 
-            httponly=True,  # Isso ajuda a evitar acesso via JavaScript (segurança)
-            max_age=timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES),  # Expira com o token
-            secure=True,  # Use True para HTTPS
-            samesite="Strict"  # Para evitar o envio em requisições de terceiros
-        )
+            # Verifica se a empresa foi encontrada
+            if empresa:
+                message = f"Login realizado com sucesso! <br> Bem vindo {empresa.nome}. Indice: {empresa}"
+            else:
+                message = "Login realizado com sucesso!"
 
-        return response
+            response = templates.TemplateResponse(
+                "painel.html",
+                {
+                    "request": request,
+                    "message": message,
+                    "message_type": "success",
+                }
+            )
+            response.set_cookie(
+                key="access_token", 
+                value=access_token, 
+                httponly=True,  # Isso ajuda a evitar acesso via JavaScript (segurança)
+                max_age=timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES),  # Expira com o token
+                secure=True,  # Use True para HTTPS
+                samesite="Strict"  # Para evitar o envio em requisições de terceiros
+            )
+
+            return response
 
 
+        else:
+            return templates.TemplateResponse(
+                "login.html",
+                {
+                    "request": request,
+                    "message": "Senha incorreta!",
+                    "message_type": "error",
+                }
+            )
+    #Caso o login não exista no banco de dados
     else:
         return templates.TemplateResponse(
             "login.html",
             {
                 "request": request,
-                "message": "Login ou senha incorretos!",
+                "message": "Login não existe no banco de dados!",
                 "message_type": "error",
             }
         )
@@ -94,7 +110,7 @@ async def protected_route(request: Request):
     try:
         data = verify_token(token)
     except:
-        pass
+        return {"error:", "prblema com o token"}
 
     if not token:
         return templates.TemplateResponse(
@@ -164,10 +180,23 @@ async def get_categorias_cadastradas(request: Request):
 @app.post("/cadastro_categoria")
 async def post_cadastro_categoria(request: Request):
     form_data = await request.form()
+    
+    token = request.cookies.get("access_token")
+    if not token:
+        return {"Error" : "Token de sessão não encontrado!"}
+    try:
+        data = verify_token(token)
+    except:
+        return {"error:", "prblema com o token"}
+    
+    
     nova_categoria = Categoria(
         nome=form_data['nome'],
-        empresa=form_data['empresa']
+        #pega o indice da empresa que tem o login que está no cookie
+        empresa=Empresa.get_or_none(Empresa.login == data["sub"])  
+        #empresa=form_data['empresa']
     )
+    
     try:
         nova_categoria.save()
         return templates.TemplateResponse("lista_categorias.html", {"request": request, "categorias": Categoria.select()})
