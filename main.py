@@ -158,7 +158,6 @@ async def get_painel(request: Request):
             )
 
     username = Empresa.get_or_none(Empresa.login == data["sub"])
-    print(username)
     return templates.TemplateResponse("painel.html", {"request": request, "user_name" : username.nome})
 
 @app.get("/cadastro_empresa")
