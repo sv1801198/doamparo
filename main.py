@@ -133,6 +133,29 @@ async def protected_route(request: Request):
 
 @app.get("/painel")
 async def get_painel(request: Request):
+
+    #rota protegida
+    try:
+        data = rota_protegida(request)
+        if not data:
+            return templates.TemplateResponse(
+                "login.html",
+                {
+                    "request": request,
+                    "message": "Você precisa estar logado para acessar esta página!",
+                    "message_type": "error",
+                }
+            )
+    except:
+        return templates.TemplateResponse(
+                "login.html",
+                {
+                    "request": request,
+                    "message": "Você precisa estar logado para acessar esta página!",
+                    "message_type": "error",
+                }
+            )
+
     return templates.TemplateResponse("painel.html", {"request": request})
 
 @app.get("/cadastro_empresa")
@@ -167,10 +190,34 @@ async def post_create_empresa(request: Request):
 
 @app.get("/cadastro_categoria")
 async def get_cadastro_categoria(request: Request):
+
+    #rota protegida
+    try:
+        data = rota_protegida(request)
+        if not data:
+            return templates.TemplateResponse(
+                "login.html",
+                {
+                    "request": request,
+                    "message": "Você precisa estar logado para acessar esta página!",
+                    "message_type": "error",
+                }
+            )
+    except:
+        return templates.TemplateResponse(
+                "login.html",
+                {
+                    "request": request,
+                    "message": "Você precisa estar logado para acessar esta página!",
+                    "message_type": "error",
+                }
+            )
+    
     return templates.TemplateResponse("cadastrar_categoria.html", {"request": request})
 
 @app.get("/categorias_cadastradas")
 async def get_categorias_cadastradas(request: Request):
+
     # Busca todas as categorias no banco de dados
     categorias = Categoria.select()
 
@@ -181,15 +228,28 @@ async def get_categorias_cadastradas(request: Request):
 async def post_cadastro_categoria(request: Request):
     form_data = await request.form()
     
-    token = request.cookies.get("access_token")
-    if not token:
-        return {"Error" : "Token de sessão não encontrado!"}
+    #rota protegida
     try:
-        data = verify_token(token)
+        data = rota_protegida(request)
+        if not data:
+            return templates.TemplateResponse(
+                "login.html",
+                {
+                    "request": request,
+                    "message": "Você precisa estar logado para acessar esta página!",
+                    "message_type": "error",
+                }
+            )
     except:
-        return {"error:", "prblema com o token"}
-    
-    
+        return templates.TemplateResponse(
+                "login.html",
+                {
+                    "request": request,
+                    "message": "Você precisa estar logado para acessar esta página!",
+                    "message_type": "error",
+                }
+            )
+
     nova_categoria = Categoria(
         nome=form_data['nome'],
         #pega o indice da empresa que tem o login que está no cookie
@@ -207,10 +267,56 @@ async def post_cadastro_categoria(request: Request):
 
 @app.get("/cadastro_produto")
 async def get_create_produto(request: Request):
+
+    #rota protegida
+    try:
+        data = rota_protegida(request)
+        if not data:
+            return templates.TemplateResponse(
+                "login.html",
+                {
+                    "request": request,
+                    "message": "Você precisa estar logado para acessar esta página!",
+                    "message_type": "error",
+                }
+            )
+    except:
+        return templates.TemplateResponse(
+                "login.html",
+                {
+                    "request": request,
+                    "message": "Você precisa estar logado para acessar esta página!",
+                    "message_type": "error",
+                }
+            )
+
     return templates.TemplateResponse("cadastrar_produto.html", {"request": request})
 
 @app.post("/cadastro_produto")
 async def post_cadastro_produto(request: Request):
+
+    #rota protegida
+    try:
+        data = rota_protegida(request)
+        if not data:
+            return templates.TemplateResponse(
+                "login.html",
+                {
+                    "request": request,
+                    "message": "Você precisa estar logado para acessar esta página!",
+                    "message_type": "error",
+                }
+            )
+    except:
+        return templates.TemplateResponse(
+                "login.html",
+                {
+                    "request": request,
+                    "message": "Você precisa estar logado para acessar esta página!",
+                    "message_type": "error",
+                }
+            )
+
     form_data = await request.form()
     novo_produto = Produto(
         nome=form_data['nome'],
@@ -236,3 +342,27 @@ async def get_produtos_cadastrados(request: Request):
 
     # Passa a lista de produtos para o template
     return templates.TemplateResponse("lista_produtos.html", {"request": request, "produtos": produtos})
+
+
+#Solicita a request, retorna os dados do token ou false
+def rota_protegida(request : Request):
+    token = request.cookies.get("access_token")
+    
+    if not token:
+        return False
+    else: 
+        try:
+            data = verify_token(token)
+        except:
+            return False
+        return data
+    
+    #use esse bloco para proteger uma rota: 
+    """  
+    try:
+        data = rota_protegida(request)
+        if not data:
+            return {"error1:", "prblema com a sessão"}
+    except:
+        return {"error2:", "prblema com a sessão"}  
+    """

@@ -32,6 +32,11 @@
             padding: 10px;
             border-radius: 5px;
             font-size: 14px;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        .login-container .message.hidden {
+            opacity: 0;
+            visibility: hidden;
         }
         .login-container .message.error {
             background-color: #f8d7da;
@@ -78,22 +83,16 @@
             text-decoration: underline;
         }
         .checkbox-container {
-			display: auto;
-			align-items: center;
-			/* Remover text-align: left; */
-		}
-
-		.checkbox-container input {
-			margin-right: 5px;
-			margin-left: 0;
-		}
-
-		.checkbox-container label {
-			font-size: 14px;
-			line-height: 1.5;
-			/* Adicionar para garantir que o texto comece imediatamente após o checkbox */
-			margin-left: 0;
-		}
+            display: flex;
+            align-items: center;
+        }
+        .checkbox-container input {
+            margin-right: 5px;
+        }
+        .checkbox-container label {
+            font-size: 14px;
+            line-height: 1.5;
+        }
     </style>
 </head>
 <body>
@@ -102,7 +101,7 @@
 
         <!-- Bloco para mensagens do servidor -->
         {% if message %}
-        <div class="message {{ message_type }}">
+        <div class="message {{ message_type }}" id="server-message">
             {{ message }}
         </div>
         {% endif %}
@@ -121,5 +120,17 @@
         </form>
         <a href="/cadastro_empresa" class="link">Não tem uma conta? Cadastre-se</a>
     </div>
+
+    <script>
+        // Esconde a mensagem visualmente sem alterar o layout
+        document.addEventListener("DOMContentLoaded", function () {
+            const message = document.getElementById("server-message");
+            if (message) {
+                setTimeout(() => {
+                    message.classList.add("hidden");
+                }, 5000);
+            }
+        });
+    </script>
 </body>
 </html>
