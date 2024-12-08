@@ -345,6 +345,32 @@ async def get_produtos_cadastrados(request: Request):
     # Passa a lista de produtos para o template
     return templates.TemplateResponse("lista_produtos.html", {"request": request, "produtos": produtos})
 
+@app.get("/editar_perfil")
+async def get_editar_perfil(request: Request):
+
+    #rota protegida
+    try:
+        data = rota_protegida(request)
+        if not data:
+            return templates.TemplateResponse(
+                "login.html",
+                {
+                    "request": request,
+                    "message": "Você precisa estar logado para acessar esta página!",
+                    "message_type": "error",
+                }
+            )
+    except:
+        return templates.TemplateResponse(
+                "login.html",
+                {
+                    "request": request,
+                    "message": "Você precisa estar logado para acessar esta página!",
+                    "message_type": "error",
+                }
+            )
+
+    return templates.TemplateResponse("editar_perfil.html", {"request": request})
 
 #Solicita a request, retorna os dados do token ou false
 def rota_protegida(request : Request):

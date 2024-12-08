@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Perfil</title>
+    <style>
+        /* Estilos Gerais */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #2a9d8f;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8em;
+            flex-grow: 1;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .header-buttons a {
+            text-decoration: none;
+            background-color: white;
+            color: #2a9d8f;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .header-buttons a:hover {
+            background-color: #ddd;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 40px auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container h2 {
+            font-size: 2em;
+            color: #2a9d8f;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-container label {
+            display: block;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background-color: #2a9d8f;
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-container button:hover {
+            background-color: #21867a;
+        }
+
+        footer {
+            background-color: #2a9d8f;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9em;
+        }
+
+        /* Media Queries para dispositivos móveis */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.4em;
+            }
+
+            .form-container {
+                margin: 20px;
+                padding: 20px;
+            }
+
+            .form-container h2 {
+                font-size: 1.6em;
+            }
+
+            .form-container input, .form-container button {
+                font-size: 1em;
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .form-container h2 {
+                font-size: 1.4em;
+            }
+
+            .form-container input, .form-container button {
+                font-size: 0.9em;
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header>
+        <h1>Do Amparo</h1>
+        <div class="header-buttons">
+            <a href="/logout">Sair</a>
+        </div>
+    </header>
+
+    <!-- Formulário de Editar Perfil -->
+    <div class="form-container">
+        <h2>Editar Perfil</h2>
+        <form action="/editar_perfil" method="post">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" value="{{ nome }}" required><br>
+
+            <label for="endereco">Endereço:</label>
+            <input type="text" id="endereco" name="endereco" value="{{ endereco }}" required><br>
+
+            <label for="telefone1">Telefone 1:</label>
+            <input type="text" id="telefone1" name="telefone1" value="{{ telefone1 }}" required><br>
+
+            <label for="telefone2">Telefone 2:</label>
+            <input type="text" id="telefone2" name="telefone2" value="{{ telefone2 }}"><br>
+
+            <label for="telefone3">Telefone 3:</label>
+            <input type="text" id="telefone3" name="telefone3" value="{{ telefone3 }}"><br>
+
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" value="{{ email }}" required><br>
+
+            <label for="horario">Horário de Funcionamento:</label>
+            <input type="text" id="horario" name="horario" value="{{ horario }}" required><br>
+
+            <button type="submit">Salvar Alterações</button>
+        </form>
+    </div>
+
+    <!-- Rodapé -->
+    <footer>
+        <p>&copy; 2024 Do Amparo. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>
