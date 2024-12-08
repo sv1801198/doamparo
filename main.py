@@ -326,7 +326,7 @@ async def post_cadastro_produto(request: Request):
         descricao=form_data['descricao'],
         img_link=form_data['img_link'],
         categoria=form_data['categoria'],
-        empresa=form_data['empresa']
+        empresa=Empresa.get_or_none(Empresa.login == data["sub"])  
     )
     try:
         novo_produto.save()
