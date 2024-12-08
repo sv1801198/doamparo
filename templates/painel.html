@@ -40,6 +40,7 @@
             transition: background-color 0.3s ease;
             border: none;
             cursor: pointer;
+            white-space: nowrap;
         }
 
         .logout-button:hover {
@@ -145,6 +146,12 @@
                 margin-bottom: 20px;
             }
 
+            header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
             header h1 {
                 font-size: 1em;
             }
@@ -152,6 +159,7 @@
             .logout-button {
                 font-size: 1em;
                 padding: 10px 15px;
+                margin-left: auto;
             }
 
             .sidebar ul li a {
@@ -174,14 +182,14 @@
 
         @media (max-width: 480px) {
             header {
-                flex-direction: column;
-                align-items: flex-start;
+                flex-wrap: nowrap;
                 gap: 10px;
             }
 
             .logout-button {
-                width: 100%;
-                text-align: center;
+                padding: 8px 12px;
+                font-size: 0.9em;
+                margin-left: auto;
             }
 
             .sidebar ul li a {
