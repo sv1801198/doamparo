@@ -48,6 +48,7 @@ async def post_login(request: Request,
                 {
                     "request": request,
                     "message": message,
+                    "user_name" : empresa.nome,
                     "message_type": "success",
                 }
             )
