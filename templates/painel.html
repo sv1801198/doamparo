@@ -17,7 +17,7 @@
         header {
             background-color: #2a9d8f;
             color: white;
-            padding: 10px 20px;
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -29,16 +29,21 @@
             word-break: break-word;
         }
 
-        .header-buttons {
-            display: flex;
-            gap: 10px;
+        .logout-button {
+            background-color: #e76f51;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1em;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
         }
 
-        .header-buttons a {
-            text-decoration: none;
-            color: white;
-            font-size: 0.9em;
-            font-weight: bold;
+        .logout-button:hover {
+            background-color: #f4a261;
         }
 
         .container {
@@ -65,21 +70,24 @@
         }
 
         .sidebar ul li {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
         .sidebar ul li a {
             text-decoration: none;
-            color: #2a9d8f;
+            background-color: #2a9d8f;
+            color: white;
+            font-size: 1em;
             font-weight: bold;
             display: block;
-            padding: 10px;
+            padding: 15px;
             border-radius: 5px;
+            text-align: center;
             transition: background-color 0.3s ease;
         }
 
         .sidebar ul li a:hover {
-            background-color: #d9f0e2;
+            background-color: #21867a;
         }
 
         .main-content {
@@ -109,7 +117,7 @@
         }
 
         .feed-card p {
-            font-size: 0.9em;
+            font-size: 1em;
             color: #555;
             margin-top: 5px;
         }
@@ -141,17 +149,26 @@
                 font-size: 1em;
             }
 
-            .header-buttons {
-                flex-direction: column;
-                gap: 5px;
+            .logout-button {
+                font-size: 1em;
+                padding: 10px 15px;
+            }
+
+            .sidebar ul li a {
+                font-size: 1em;
+                padding: 12px;
             }
 
             .main-content h2 {
                 font-size: 1.4em;
             }
 
-            .feed-card {
-                font-size: 0.8em;
+            .feed-card h3 {
+                font-size: 1em;
+            }
+
+            .feed-card p {
+                font-size: 0.9em;
             }
         }
 
@@ -162,19 +179,18 @@
                 gap: 10px;
             }
 
-            .header-buttons {
+            .logout-button {
                 width: 100%;
-                display: flex;
-                justify-content: space-between;
+                text-align: center;
             }
 
             .sidebar ul li a {
-                font-size: 0.9em;
-                padding: 8px;
+                font-size: 1em;
+                padding: 10px;
             }
 
             .feed-card h3 {
-                font-size: 1em;
+                font-size: 0.9em;
             }
 
             .feed-card p {
@@ -187,9 +203,7 @@
     <!-- Cabeçalho -->
     <header>
         <h1>Painel - Bem-vindo, {{ user_name }}</h1>
-        <div class="header-buttons">
-            <a href="/logout">Sair</a>
-        </div>
+        <a href="/logout" class="logout-button">Sair</a>
     </header>
 
     <!-- Container Principal -->
@@ -197,19 +211,18 @@
         <!-- Barra Lateral -->
         <div class="sidebar">
             <ul>
+                <li><a href="/editar_perfil">Editar Perfil</a></li>
                 <li><a href="/cadastro_categoria">Cadastrar Categoria</a></li>
                 <li><a href="/consulta_categoria">Consultar Categorias</a></li>
                 <li><a href="/cadastro_produto">Cadastrar Produto</a></li>
                 <li><a href="/consulta_produto">Consultar Produtos</a></li>
                 <li><a href="/visualizar_catalogo">Visualizar Meu Catálogo</a></li>
-                <li><a href="/editar_perfil">Editar Perfil</a></li>
             </ul>
         </div>
 
         <!-- Conteúdo Principal -->
         <div class="main-content">
             <h2>Feed de Atualizações</h2>
-            <!-- Exemplo de Cards no Feed -->
             <div class="feed-card">
                 <h3>Nova Categoria Cadastrada</h3>
                 <p>Você acabou de adicionar a categoria "Eletrônicos" ao seu catálogo.</p>
